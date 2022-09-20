@@ -19,9 +19,10 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
     static int amount;
     SettingsLoader loader;
-
     loader.readini(amount);
     static std::map <__pid_t, std::string> forksList;
+
+    // todo: add list with enabled in ini file classes and in a loop below only create classes that are enabled
 
     __pid_t id = fork();
     for ( int i= 0; i<amount; i++ ) {
