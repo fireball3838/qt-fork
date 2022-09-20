@@ -1,0 +1,33 @@
+﻿#include <QCoreApplication>
+#include <iostream>
+#include <unistd.h>
+#include <QSettings>
+#include <list>
+#include <sys/wait.h>
+#include <ClassFirst.h>
+#include <ClassSecond.h>
+#include <ClassThird.h>
+
+
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+    const int amount = 3;
+
+    __pid_t id = fork();
+    std::cout << getpid() << std::endl;
+
+    static std::map <__pid_t, std::string> forksList;
+    // forksList.insert(std::pair<__pid_t, std::string>(id, "First") );
+
+
+
+
+    for (auto [key, value] : forksList) {
+        std::cout << key << ":" << value <<  " // from " << getpid() << std::endl;
+    }
+
+
+    return(0);
+}
