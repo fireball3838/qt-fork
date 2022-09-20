@@ -1,8 +1,11 @@
 #include "ClassThird.h"
 #include <iostream>
+#include <unistd.h>
+#include <unistd.h>
+
 
 ClassThird::ClassThird() {
-    std::cout << "Third class created\n";
+    qDebug() << "Third class created in " << getpid() <<" thread id\n";
 }
 
 void ClassThird::action() {

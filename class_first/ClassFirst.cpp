@@ -1,10 +1,10 @@
 #include "ClassFirst.h"
 #include <iostream>
 #include <QDebug>
-
+#include <unistd.h>
 
 ClassFirst::ClassFirst() {
-    std::cout << "First class created\n";
+    qDebug() << "First class created in " << getpid() <<" thread id\n";
 }
 
 void ClassFirst::run() {

@@ -6,6 +6,7 @@
 #include <chrono>
 #include <thread>
 #include <QDebug>
+#include <sys/wait.h>
 
 #include <SettingsLoader.h>
 #include <ClassFirst.h>
@@ -24,12 +25,14 @@ int main(int argc, char *argv[])
 
     // todo: add list with enabled in ini file classes and in a loop below only create classes that are enabled
 
+
     __pid_t id = fork();
     for ( int i= 0; i<amount; i++ ) {
         switch(i) {
         case 0: {
             if ( id == 0 ) {
                 ClassFirst something1;
+                std::this_thread::sleep_for (std::chrono::seconds(3));
                 exit(0);
             } else {
                 forksList.insert(std::pair<__pid_t, std::string>(id, "First") );
@@ -41,6 +44,7 @@ int main(int argc, char *argv[])
         case 1:
             if  (id == 0 ) {
                 ClassSecond something2;
+                std::this_thread::sleep_for (std::chrono::seconds(3));
                 exit(0);
             } else {
                 forksList.insert(std::pair<__pid_t, std::string>(id, "Second") );
@@ -51,6 +55,7 @@ int main(int argc, char *argv[])
         case 2: {
             if (id == 0) {
                 ClassThird something3;
+                std::this_thread::sleep_for (std::chrono::seconds(3));
                 exit(0);
             } else {
                 forksList.insert(std::pair<__pid_t, std::string>(id, "Third") );
@@ -61,10 +66,10 @@ int main(int argc, char *argv[])
         }
     }
 
-
+    std::cout << "Information from thread " << getpid() << ":\n";
     for (auto [key, value] : forksList) {
         std::cout << key << ":" << value <<  " // from " << getpid() << std::endl;
     }
-
+    while ((id = wait(nullptr)) > 0);
 
 }

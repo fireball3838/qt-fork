@@ -1,8 +1,10 @@
 #include "ClassSecond.h"
 #include <iostream>
+#include <unistd.h>
+#include <unistd.h>
 
 ClassSecond::ClassSecond() {
-    std::cout << "Second class created\n";
+    qDebug() << "Second class created in " << getpid() <<" thread id\n";
 }
 
 void ClassSecond::action() {
