@@ -5,7 +5,7 @@
 
 
 ClassThird::ClassThird() {
-    qDebug() << "Third class created in " << getpid() <<" thread id\n";
+    qDebug() << "Third class created in " << getpid() <<" id\n";
 }
 
 void ClassThird::action() {

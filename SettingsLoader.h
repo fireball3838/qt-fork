@@ -2,6 +2,7 @@
 #define SETTINGSLOADER_H
 
 #include <QSettings>
+#include <vector>
 
 class SettingsLoader {
 public:
@@ -14,9 +15,10 @@ public:
 
     /**
      * @brief Reads info from file
-     * @return Amount of classes (by reference)
+     * @param Variable to contain amount of classes and a vector to contain list of classes that are needed to be enabled
+     * @return Amount of classes, list of classes that are needed to be enabled (by reference)
      */
-    void readini(int &amount);
+    void readini(int &amount, std::vector <bool> &toBeEnabled);
 
 private:
     QSettings ini;

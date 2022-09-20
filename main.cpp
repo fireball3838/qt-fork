@@ -20,8 +20,9 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
     static int amount;
     SettingsLoader loader;
-    loader.readini(amount);
     static std::map <__pid_t, std::string> forksList;
+    static std::vector <bool> toBeEnabled;
+    loader.readini(amount, toBeEnabled);
 
     // todo: add list with enabled in ini file classes and in a loop below only create classes that are enabled
 
@@ -31,11 +32,14 @@ int main(int argc, char *argv[])
         switch(i) {
         case 0: {
             if ( id == 0 ) {
-                ClassFirst something1;
-                std::this_thread::sleep_for (std::chrono::seconds(3));
+                if ( toBeEnabled[0] ) {
+                    ClassFirst something1;
+                    std::this_thread::sleep_for (std::chrono::seconds(3));
+                }
                 exit(0);
             } else {
-                forksList.insert(std::pair<__pid_t, std::string>(id, "First") );
+                if ( toBeEnabled[0] )
+                    forksList.insert(std::pair<__pid_t, std::string>(id, "First") );
                 if (i!= amount-1)
                     id = fork();
                 break;
@@ -43,22 +47,28 @@ int main(int argc, char *argv[])
         }
         case 1:
             if  (id == 0 ) {
-                ClassSecond something2;
-                std::this_thread::sleep_for (std::chrono::seconds(3));
+                if ( toBeEnabled[1] ) {
+                    ClassSecond something2;
+                    std::this_thread::sleep_for (std::chrono::seconds(3));
+                }
                 exit(0);
             } else {
-                forksList.insert(std::pair<__pid_t, std::string>(id, "Second") );
+                if ( toBeEnabled[1] )
+                    forksList.insert(std::pair<__pid_t, std::string>(id, "Second") );
                 if (i!= amount-1)
                     id = fork();
                 break;
             }
         case 2: {
             if (id == 0) {
-                ClassThird something3;
-                std::this_thread::sleep_for (std::chrono::seconds(3));
+                if ( toBeEnabled[2] ) {
+                    ClassThird something3;
+                    std::this_thread::sleep_for (std::chrono::seconds(3));
+                }
                 exit(0);
             } else {
-                forksList.insert(std::pair<__pid_t, std::string>(id, "Third") );
+                if ( toBeEnabled[2] )
+                    forksList.insert(std::pair<__pid_t, std::string>(id, "Third") );
                 break;
             }
             break;

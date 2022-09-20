@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 ClassSecond::ClassSecond() {
-    qDebug() << "Second class created in " << getpid() <<" thread id\n";
+    qDebug() << "Second class created in " << getpid() <<" id\n";
 }
 
 void ClassSecond::action() {

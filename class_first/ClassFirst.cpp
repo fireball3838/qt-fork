@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 ClassFirst::ClassFirst() {
-    qDebug() << "First class created in " << getpid() <<" thread id\n";
+    qDebug() << "First class created in " << getpid() <<" id\n";
 }
 
 void ClassFirst::run() {
